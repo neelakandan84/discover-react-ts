@@ -9,36 +9,56 @@ interface PayeesListProps {
   selectHeader?: (column: ColumnConfig) => void;
 }
 
-const PayeesList = ({ payees, columns }: PayeesListProps) => {
+const PayeesList = ({
+  payees,
+  columns,
+  selectPayee,
+  selectHeader,
+}: PayeesListProps) => {
   return (
     <table className="table is-striped is-hoverable is-fullwidth">
-      <PayeesListHeader columns={columns} />
+      <PayeesListHeader columns={columns} selectHeader={selectHeader} />
       <tbody>
         {payees.map(payee => (
-          <PayeesListRow payee={payee} columns={columns} key={payee.id}/>
+          <PayeesListRow
+            payee={payee}
+            columns={columns}
+            selectPayee={selectPayee}
+            key={payee.id}
+          />
         ))}
       </tbody>
     </table>
   );
 };
 
-type PayeesListColumns = Pick<PayeesListProps, 'columns'>;
-
-const PayeesListHeader = ({ columns }: PayeesListColumns) => {
+const PayeesListHeader = ({
+  columns,
+  selectHeader,
+}: Pick<PayeesListProps, 'columns' | 'selectHeader'>) => {
   return (
     <thead>
       <tr>
         {columns.map(({ field, label }) => (
-          <th key={field}>{label}</th>
+          <th
+            key={field}
+            onClick={() => selectHeader && selectHeader({ field, label })}
+          >
+            {label}
+          </th>
         ))}
       </tr>
     </thead>
   );
 };
 
-const PayeesListRow = ({ columns, payee }: PayeesListColumns & { payee: Payee }) => {
+const PayeesListRow = ({
+  columns,
+  payee,
+  selectPayee,
+}: Pick<PayeesListProps, 'columns' | 'selectPayee'> & { payee: Payee }) => {
   return (
-    <tr>
+    <tr onClick={() => selectPayee && selectPayee(payee)}>
       {columns.map(column => (
         <td key={column.field}>{lodash.get(payee, column.field) + ''}</td>
       ))}

@@ -28,17 +28,25 @@ function PayeesManager() {
   const columns: ColumnConfig[] = [
     {
       field: 'payeeName',
-      label: 'Payee Name'
+      label: 'Payee Name',
     },
     {
       field: 'address.city',
-      label: 'City'
+      label: 'City',
     },
     {
       field: 'address.state',
-      label: 'State'
+      label: 'State',
     },
-  ]
+  ];
+
+  const handleSelectHeader = ({ field, label }: ColumnConfig) => {
+    console.log(`You clicked on the ${label} header`);
+  };
+
+  const handleSelectPayee = (payee: Payee) => {
+    console.log(`You clicked on ${payee.payeeName}`);
+  };
 
   return (
     <div>
@@ -53,7 +61,12 @@ function PayeesManager() {
         <p>&nbsp;</p>
       */}
       {/* <PayeesSearch searchPayees={handleSearchPayees} /> */}
-      <PayeesList payees={payees} columns={columns} />
+      <PayeesList
+        payees={payees}
+        columns={columns}
+        selectHeader={handleSelectHeader}
+        selectPayee={handleSelectPayee}
+      />
     </div>
   );
 }
