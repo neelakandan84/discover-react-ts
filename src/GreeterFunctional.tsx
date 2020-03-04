@@ -9,9 +9,9 @@ const GreeterFunctional = ({ company }: GreeterFunctionalProps) => {
   // const { company } = props;
 
   return (
-    <section>
-      <h1>Greetings from {company}</h1>
-    </section>
+    <div style={{borderBottom: '3px black solid'}}>
+      <h1 className="is-size-2">Greetings from {company}</h1>
+    </div>
   );
 };
 

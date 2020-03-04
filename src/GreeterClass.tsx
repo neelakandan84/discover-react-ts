@@ -1,11 +1,15 @@
 import React from 'react';
 
-class GreeterClass extends React.Component {
+interface GreeterClassProps {
+  company: string;
+}
+
+class GreeterClass extends React.Component<GreeterClassProps> {
 
   render() {
     return (
       <section>
-        <h1>Hello from GreeterClass.</h1>
+        <h1>Greetings from {this.props.company} (GreeterClass)</h1>
       </section>
     )
   }

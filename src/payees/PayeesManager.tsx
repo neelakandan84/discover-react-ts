@@ -15,7 +15,7 @@ function PayeesManager() {
 
   return (
     <div>
-      <h2>Payees</h2>
+      <h2 className="is-size-4">Payees</h2>
       <PayeesSearch searchPayees={handleSearchPayees} />
     </div>
   );
