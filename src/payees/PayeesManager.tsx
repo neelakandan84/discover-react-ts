@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PayeesSearch from './PayeesSearch';
 import { dao } from './payees-dao';
+import PayeesList from './PayeesList';
 
 function PayeesManager() {
   const [payees, setPayees] = useState([]);
@@ -22,6 +23,17 @@ function PayeesManager() {
     payeeCount = <p>There are verifiably {payees.length} payees.</p>;
   }
 
+  const columns = [
+    {
+      field: 'payeeName',
+      label: 'Payee Name'
+    },
+    {
+      field: 'active',
+      label: 'Active'
+    }
+  ]
+
   return (
     <div>
       <h2 className="is-size-4">Payees</h2>
@@ -34,7 +46,8 @@ function PayeesManager() {
         <p>There are {payees.length} payees.</p> :
         <p>&nbsp;</p>
       */}
-      <PayeesSearch searchPayees={handleSearchPayees} />
+      {/* <PayeesSearch searchPayees={handleSearchPayees} /> */}
+      <PayeesList payees={payees} columns={columns} />
     </div>
   );
 }
