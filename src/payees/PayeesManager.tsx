@@ -25,15 +25,19 @@ function PayeesManager() {
     payeeCount = <p>There are verifiably {payees.length} payees.</p>;
   }
 
-  const columns: ColumnConfig<Payee>[] = [
+  const columns: ColumnConfig[] = [
     {
       field: 'payeeName',
       label: 'Payee Name'
     },
     {
-      field: 'active',
-      label: 'Active'
-    }
+      field: 'address.city',
+      label: 'City'
+    },
+    {
+      field: 'address.state',
+      label: 'State'
+    },
   ]
 
   return (
