@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PayeesSearch from './PayeesSearch';
 import { dao } from './payees-dao';
-import PayeesList from './PayeesList';
+import PayeesList from './PayeesListRefactored';
 import { ColumnConfig, Payee } from './payee-types';
 
 function PayeesManager() {

@@ -14,9 +14,9 @@ const PayeesList = ({ payees, columns }: PayeesListProps) => {
     <table className="table is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th>Payee Name</th>
-          <th>City</th>
-          <th>State</th>
+          {columns.map(({ field, label }) => (
+            <th key={field}>{label}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
