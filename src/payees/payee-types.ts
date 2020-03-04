@@ -1,5 +1,5 @@
-export interface ColumnConfig {
-  field: string;
+export interface ColumnConfig<T> {
+  field: keyof T;
   label: string;
 }
 
@@ -12,7 +12,6 @@ export interface Payee {
   image?: string;
   motto?: string;
   active: boolean;
-  [key: string]: any;
 }
 
 export interface Address {

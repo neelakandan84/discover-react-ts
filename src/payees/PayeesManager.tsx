@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import PayeesSearch from './PayeesSearch';
 import { dao } from './payees-dao';
 import PayeesList from './PayeesList';
+import { ColumnConfig, Payee } from './payee-types';
 
 function PayeesManager() {
   const [payees, setPayees] = useState([]);
@@ -23,7 +25,7 @@ function PayeesManager() {
     payeeCount = <p>There are verifiably {payees.length} payees.</p>;
   }
 
-  const columns = [
+  const columns: ColumnConfig<Payee>[] = [
     {
       field: 'payeeName',
       label: 'Payee Name'
