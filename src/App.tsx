@@ -1,17 +1,16 @@
 import React from 'react';
-import GreeterFunctional from './GreeterClass';
+import GreeterFunctional from './GreeterFunctional';
 import PayeesManager from './payees/PayeesManager';
 
 function App() {
   return (
     <section className="section">
-    <div className="container">
+      <div className="container">
+        <GreeterFunctional company="Discover Financial Services" />
 
-      <GreeterFunctional company="Discover Financial Services"/>
-
-      <PayeesManager />
+        <PayeesManager />
       </div>
-      </section>
+    </section>
   );
 }
 

@@ -1,5 +1,5 @@
 function getPayees() {
-  return fetch('http://localhost:8000/api/v1/banking/payees')
+  return fetch('http://localhost:8000/api/v1/banking/payees?_delay=2500')
     .then(response => {
       if (response.ok) {
         return response.json();

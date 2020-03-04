@@ -9,7 +9,7 @@ class GreeterClass extends React.Component<GreeterClassProps> {
   render() {
     return (
       <section>
-        <h1>Greetings from {this.props.company} (GreeterClass)</h1>
+        <h1 className="is-size-3 has-text-weight-bold">Greetings from {this.props.company} (GreeterClass)</h1>
       </section>
     )
   }
