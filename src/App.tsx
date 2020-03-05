@@ -8,6 +8,7 @@ import {
 
 import GreeterFunctional from './GreeterFunctional';
 import PayeesManager from './payees/PayeesManager';
+import ReduxCounter from './demos/ReduxCounter';
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
           <GreeterFunctional company="Discover Financial Services" />
           <div>
             <p>
-              <NavLink to="/payees">Payees</NavLink> | <NavLink to="/people">People</NavLink>
+              <NavLink to="/payees">Payees</NavLink> | 
+              <NavLink to="/people">People</NavLink> | 
+              <NavLink to="/redux-counter">Redux Counter</NavLink>
             </p>
           </div>
 
@@ -27,6 +30,9 @@ function App() {
             </Route>
             <Route path="/people">
               <PeopleManager />
+            </Route>
+            <Route path="/redux-counter">
+              <ReduxCounter />
             </Route>
           </Switch>
         </div>
