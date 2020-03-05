@@ -6,6 +6,7 @@ const initialState = {
   counter: 0,
 };
 
+// Action generators
 const increment = () => ({
   type: 'INCREMENT',
 });
@@ -21,6 +22,7 @@ const add = (amount: number) => ({
   },
 });
 
+// Reducer
 const reducer = (state = { counter: 0 }, action: AnyAction) => {
   switch (action.type) {
     case 'INCREMENT':
@@ -36,13 +38,9 @@ const reducer = (state = { counter: 0 }, action: AnyAction) => {
 
 const store = createStore(reducer, initialState);
 
-function ReduxCounter() {
-  return (
-    <Provider store={store}>
-      <ConnectedCounter />
-    </Provider>
-  );
-}
+// End of Redux and store setup
+
+// React setup
 
 interface CounterProps {
   value: number;
@@ -50,6 +48,7 @@ interface CounterProps {
   decrement: () => void;
 }
 
+// Presentational component
 function Counter({ value, increment, decrement }: CounterProps) {
   return (
     <div className="card">
@@ -82,6 +81,23 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   decrement: () => dispatch(decrement()),
 });
 
-const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);
+// Map an object instead of a function which returns an object
+const betterMapDispatchToProps = {
+  // event: actionCreator
+  increment,
+  decrement
+};
+
+// Create a higher-order component (HOC) ready to plug into a store
+const ConnectedCounter = connect(mapStateToProps, betterMapDispatchToProps)(Counter);
+
+// Use the HOC as a descendant of Provider
+function ReduxCounter() {
+  return (
+    <Provider store={store}>
+      <ConnectedCounter />
+    </Provider>
+  );
+}
 
 export default ReduxCounter;
