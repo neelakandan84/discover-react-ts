@@ -39,5 +39,5 @@ store.subscribe(() => {
 store.dispatch(incrementAction);
 store.dispatch(add(5));
 store.dispatch(add(-2));
-store.dispatch({type: 'UNIMPLEMENTED'});
+store.dispatch({ type: 'UNIMPLEMENTED' });
 store.dispatch(add(30));
