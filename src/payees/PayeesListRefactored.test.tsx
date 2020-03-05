@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import { PayeesListRow } from './PayeesListRefactored';
@@ -15,14 +15,17 @@ describe('PayeesListRow', () => {
   });
 
   test('loads and renders a row', () => {
-    const { queryByText } = render(
+    const { queryByText, getAllByText } = render(
       <PayeesListRow columns={columns} payee={payees[0]} />,
       {
         container: document.body.appendChild(thead),
       },
     );
     const header = queryByText(new RegExp(payees[0].payeeName));
+    const {payeeName, address: {city, state}} = payees[0];
+    const headers = getAllByText(new RegExp(`(${payeeName}|${city}|${state})`));
     expect(header).toBeInTheDocument();
+    expect(headers.length).toBe(columns.length);
   });
 
   test('runs an event handler', () => {
