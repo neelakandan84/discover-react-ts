@@ -23,10 +23,12 @@ const PayeesSearch = (props: PayeesSearchProps) => {
   };
 
   return (
-    <div>
+    <div className="field">
       <label htmlFor="searchPayeeName">Payee Name:</label>
-      <input type="text" id="searchPayeeName" onChange={handleInput} value={searchText} />
-      <button type="button" onClick={handleButton}>
+      <div className="control">
+      <input className="input" type="text" id="searchPayeeName" onChange={handleInput} value={searchText} />
+      </div>
+      <button className="button is-primary" type="button" onClick={handleButton}>
         Search!
       </button>
     </div>

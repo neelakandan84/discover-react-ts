@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect, useHistory } from 'react-router-dom';
 
 import PayeesSearch from './PayeesSearch';
 import { dao } from './payees-dao';
@@ -9,6 +9,8 @@ import { ColumnConfig, Payee } from './payee-types';
 
 function PayeesManager() {
   const [payees, setPayees] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     dao.getPayees().then(payees => {
@@ -17,8 +19,11 @@ function PayeesManager() {
     });
   }, []);
 
-  function handleSearchPayees(message: string) {
-    console.log('PayeesManager: handleSearchPayees(): ', message);
+  function handleSearchPayees(searchText: string) {
+    console.log('PayeesManager: handleSearchPayees(): ', searchText);
+    setSearchText(searchText);
+    history.push('/payees/list');
+
   }
 
   let payeeCount = <p>&nbsp;</p>;
@@ -50,6 +55,14 @@ function PayeesManager() {
     console.log(`You clicked on ${payee.payeeName}`);
   };
 
+  const displayPayees = payees.filter((payee: Payee) => {
+    if (searchText === '') {
+      return true;
+    } else {
+      return payee.payeeName.toUpperCase().includes(searchText.toUpperCase());
+    }
+  });
+
   return (
     <div>
       <h2 className="is-size-4">Payees</h2>
@@ -72,7 +85,7 @@ function PayeesManager() {
         </Route>
         <Route path="/payees/list">
           <PayeesList
-            payees={payees}
+            payees={displayPayees}
             columns={columns}
             selectHeader={handleSelectHeader}
             selectPayee={handleSelectPayee}

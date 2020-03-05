@@ -9,12 +9,7 @@ interface PayeesListProps {
   selectHeader?: (column: ColumnConfig) => void;
 }
 
-const PayeesList = ({
-  payees,
-  columns,
-  selectPayee,
-  selectHeader,
-}: PayeesListProps) => {
+const PayeesList = ({ payees, columns, selectPayee, selectHeader }: PayeesListProps) => {
   return (
     <table className="table is-striped is-hoverable is-fullwidth">
       <PayeesListHeader columns={columns} selectHeader={selectHeader} />
@@ -40,10 +35,7 @@ const PayeesListHeader = ({
     <thead>
       <tr>
         {columns.map(({ field, label }) => (
-          <th
-            key={field}
-            onClick={() => selectHeader && selectHeader({ field, label })}
-          >
+          <th key={field} onClick={() => selectHeader && selectHeader({ field, label })}>
             {label}
           </th>
         ))}
@@ -52,7 +44,7 @@ const PayeesListHeader = ({
   );
 };
 
-const PayeesListRow = ({
+export const PayeesListRow = ({
   columns,
   payee,
   selectPayee,
