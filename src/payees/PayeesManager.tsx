@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+
 import PayeesSearch from './PayeesSearch';
 import { dao } from './payees-dao';
 import PayeesList from './PayeesListRefactored';
@@ -51,6 +53,10 @@ function PayeesManager() {
   return (
     <div>
       <h2 className="is-size-4">Payees</h2>
+      <p>
+        <NavLink to="/payees/search">Search</NavLink> |{' '}
+        <NavLink to="/payees/list">Browse</NavLink>
+      </p>
       <p style={{ visibility: payees.length ? 'visible' : 'hidden' }}>
         There are {payees.length} payees.
       </p>
@@ -60,13 +66,22 @@ function PayeesManager() {
         <p>There are {payees.length} payees.</p> :
         <p>&nbsp;</p>
       */}
-      {/* <PayeesSearch searchPayees={handleSearchPayees} /> */}
-      <PayeesList
-        payees={payees}
-        columns={columns}
-        selectHeader={handleSelectHeader}
-        selectPayee={handleSelectPayee}
-      />
+      <Switch>
+        <Route path="/payees/search">
+          <PayeesSearch searchPayees={handleSearchPayees} />
+        </Route>
+        <Route path="/payees/list">
+          <PayeesList
+            payees={payees}
+            columns={columns}
+            selectHeader={handleSelectHeader}
+            selectPayee={handleSelectPayee}
+          />
+        </Route>
+        <Route path="/payees">
+          <Redirect to="/payees/search" />
+        </Route>
+      </Switch>
     </div>
   );
 }
