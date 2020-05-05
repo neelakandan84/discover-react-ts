@@ -1,20 +1,21 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { AppThunk, AppDispatch } from '../store';
-import {dao} from './payees-dao';
+import { dao } from './payees-dao';
 
 const initialState = {
   items: [],
   searchText: '',
   error: null,
-  isLoading: false
-}
+  isLoading: false,
+};
 
 const payeesSlice = createSlice({
   name: 'payees',
   initialState,
   reducers: {
-    setSearchText: (state, action) => state.searchText = action.payload.searchText,
-    requestPayees: (state) => {
+    setSearchText: (state, action) =>
+      (state.searchText = action.payload.searchText),
+    requestPayees: state => {
       state.isLoading = true;
       state.error = null;
     },
@@ -25,8 +26,8 @@ const payeesSlice = createSlice({
     receiveError: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const fetchPayees = (): AppThunk => async (dispatch: AppDispatch) => {
@@ -38,9 +39,17 @@ export const fetchPayees = (): AppThunk => async (dispatch: AppDispatch) => {
   } catch (error) {
     dispatch(receiveError(error));
   }
-}
+};
 
-const {actions, reducer} = payeesSlice;
-const {receiveError, receivePayees, requestPayees, setSearchText} = actions;
+export const fetchPayeesPromise = (): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(requestPayees());
+  dao
+    .getPayees()
+    .then(payees => dispatch(receivePayees(payees)))
+    .catch(error => dispatch(receiveError(error)));
+};
 
-export {reducer, receiveError, receivePayees, requestPayees, setSearchText};
+const { actions, reducer } = payeesSlice;
+const { receiveError, receivePayees, requestPayees, setSearchText } = actions;
+
+export { reducer, receiveError, receivePayees, requestPayees, setSearchText };
